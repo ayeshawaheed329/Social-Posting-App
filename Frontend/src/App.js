@@ -195,7 +195,7 @@ class App extends Component {
         {this.state.showBackdrop && (
           <Backdrop onClick={this.backdropClickHandler} />
         )}
-        <ErrorHandler error={this.state.error} onHandle={this.errorHandler} />
+        {/* <ErrorHandler error={this.state.error} onHandle={this.errorHandler} /> */}
         <Layout
           header={
             <Toolbar>

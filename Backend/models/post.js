@@ -19,7 +19,7 @@ const postSchema = Schema({
         require: true,
     },
     },
-    { timeStamps: true },
+    { timestamps: true },
 );
 
 module.exports = mongoose.model('Post', postSchema);
