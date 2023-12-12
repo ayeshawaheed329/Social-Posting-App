@@ -6,6 +6,7 @@ const multer = require('multer');
 
 // Routes
 const feedRoutes = require("./routes/feed");
+const authRoutes = require("./routes/auth");
 
 // Apps
 const app = express();
@@ -43,13 +44,17 @@ app.use('/images',express.static(path.join(__dirname, 'images')));
 
 
 app.use("/feed", feedRoutes);
+app.use("/auth", authRoutes);
+
 
 app.use((error, req, res, next) =>{
   console.log("error ",error);              // for developer insights
   const status = error?.statusCode || 500 ;
   const msg = error?.message;
+  const data = error?.data;
   res.status(status).json({
-    message: msg
+    message: msg,
+    data: data
   });
 });
 
