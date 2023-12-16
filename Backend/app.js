@@ -64,8 +64,11 @@ mongoose
     "MONGO DB CONNECTION URL"
   )
   .then((result) => {
-    console.log("Database is connected.");
-    app.listen(8080);
+    const server = app.listen(8080);
+    const io = require('./socket').init(server);
+    io.on('connection', socket => {
+      console.log('Client connected');
+    });
   })
   .catch((error) => {
     console.log("Error ", error);
