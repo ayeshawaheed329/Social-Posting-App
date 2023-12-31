@@ -3,6 +3,8 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require('multer');
+const helmet = require("helmet");
+const compression = require("compression");
 
 // Routes
 const feedRoutes = require("./routes/feed");
@@ -10,6 +12,7 @@ const authRoutes = require("./routes/auth");
 
 // Apps
 const app = express();
+
 
 // multer configuration for images
 const fileStorage = multer.diskStorage({
@@ -21,6 +24,11 @@ const fileStorage = multer.diskStorage({
   }
 });
 
+// enabling the Helmet middleware for securing header
+app.use(helmet());
+
+// compressing assets except images
+app.use(compression());
 
 // app.use(bodyParser.urlencoded()); // x-www-form-urlencoded <form>
 app.use(bodyParser.json()); // application/json
@@ -61,7 +69,7 @@ app.use((error, req, res, next) =>{
 
 mongoose
   .connect(
-    "MONGO DB CONNECTION URL"
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.l113ogc.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true`
   )
   .then((result) => {
     const server = app.listen(8080);
