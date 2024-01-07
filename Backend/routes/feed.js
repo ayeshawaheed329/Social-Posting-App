@@ -8,7 +8,22 @@ const router = express.Router();
 // auth
 const isAuth = require("../middleware/is-auth");
 
-// GET /feed/posts
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Retrieve a list of posts
+ *     description: Retrieve a list of posts for user. 
+ *     responses:
+ *        200:
+ *         description: A list of users.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/models/post'
+*/
 router.get("/posts", isAuth, feedController.getPosts);
 
 // POST /feed/post
